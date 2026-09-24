@@ -2,39 +2,73 @@ import React, { useState } from 'react';
 import {
   MDBNavbar,
   MDBContainer,
-  MDBNavbarBrand,
-  MDBNavbarToggler,
+  MDBIcon,
+  MDBNavbarNav,
   MDBNavbarItem,
   MDBNavbarLink,
-  MDBIcon,
-  MDBCollapse
+  MDBNavbarToggler,
+  MDBCollapse,
+  MDBDropdown,
+  MDBDropdownMenu,
+  MDBDropdownToggle,
+  MDBDropdownItem,
 } from 'mdb-react-ui-kit';
+import { useLocation } from 'react-router-dom';
 
-export default function Navbar() {
-  const [openNavExternal, setOpenNavExternal] = useState(false);
+
+export default function App() {
+  const [openNavCentred, setOpenNavCentred] = useState(false);
+  const location = useLocation();
+//   const currentPath = location.pathname;
+    const navLinks = [
+    { path: '/', label: 'Home' },
+    { path: '/resume', label: 'Resume' },
+    { path: '/projects', label: 'Projects' },
+    ];
 
   return (
-    <>
-      <MDBCollapse open={openNavExternal}>
-        <div className='bg-dark p-4'>
-          <h5 className='text-white h4'>Collapsed content</h5>
-          <span className='text-muted'>Toggleable via the navbar brand.</span>
-        </div>
-      </MDBCollapse>
-      <MDBNavbar light bgColor='light'>
-        <MDBContainer fluid>
-          <MDBNavbarToggler
-            type='button'
-            data-target='#navbarToggleExternalContent'
-            aria-controls='navbarToggleExternalContent'
-            aria-expanded='false'
-            aria-label='Toggle navigation'
-            onClick={() => setOpenNavExternal(!openNavExternal)}
-          >
-            <MDBIcon icon='bars' fas />
-          </MDBNavbarToggler>
-        </MDBContainer>
-      </MDBNavbar>
-    </>
+    <MDBNavbar expand='lg' light bgColor='light'>
+      <MDBContainer fluid>
+        <MDBNavbarToggler
+          type='button'
+          data-target='#navbarCenteredExample'
+          aria-controls='navbarCenteredExample'
+          aria-expanded='false'
+          aria-label='Toggle navigation'
+          onClick={() => setOpenNavCentred(!openNavCentred)}
+        >
+          <MDBIcon icon='bars' fas />
+        </MDBNavbarToggler>
+
+        <MDBCollapse navbar open={openNavCentred} center id='navbarCenteredExample'>
+          <MDBNavbarNav fullWidth={false} className='mb-2 mb-lg-0'>
+            <MDBNavbarItem>
+              <MDBNavbarLink active aria-current='page' href='#'>
+                Home
+              </MDBNavbarLink>
+            </MDBNavbarItem>
+            <MDBNavbarItem>
+              <MDBNavbarLink href='#/resume'>Resume</MDBNavbarLink>
+            </MDBNavbarItem>
+            <MDBNavbarItem>
+              <MDBNavbarLink href='#/projects'>Projects</MDBNavbarLink>
+            </MDBNavbarItem>
+            <MDBNavbarItem>
+                <MDBDropdown>
+                    {/* < DropDownForm /> */}
+                </MDBDropdown>
+
+            {navLinks.map((link) => 
+                location.pathname !== link.path && (
+                    <MDBNavbarItem key={link.path}>
+                        {/* <MDBNavbarLink href={link.path}>{link.label}</MDBNavbarLink> */}
+                    </MDBNavbarItem>
+                )
+            )}
+            </MDBNavbarItem>
+          </MDBNavbarNav>
+        </MDBCollapse>
+      </MDBContainer>
+    </MDBNavbar>
   );
 }

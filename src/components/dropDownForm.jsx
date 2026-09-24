@@ -4,7 +4,8 @@ import {
   MDBDropdownToggle, 
   MDBDropdownMenu, 
   MDBInput, 
-  MDBBtn 
+  MDBBtn, 
+  MDBTextArea,
 } from 'mdb-react-ui-kit'
 
 export default function DropDownForm() {
@@ -16,18 +17,25 @@ export default function DropDownForm() {
     }
     return (
         <MDBDropdown>
-            <MDBDropdownToggle color="primary" type="button">
+            <MDBDropdownToggle outline rounded className='mx-2' color='white' type="button">
                 Get in touch
             </MDBDropdownToggle>
-            <MDBDropdownMenu className='p-4' style={{ minWidth: '300px' }}>
+            <MDBDropdownMenu outline rounded className='mx-2' color='white'>
                 <form onSubmit={handleSubmit}>
                     <div className="mb-3">
+                        <MDBInput
+                            type="text"
+                            label="First and Last name"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                        />
                         <MDBInput
                             type="email"
                             label="Email address"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                         />
+                        <MDBTextArea label="Message" id="textAreaExample" rows="{4}" />
                     </div>
 
                     <MDBBtn type="submit" block>

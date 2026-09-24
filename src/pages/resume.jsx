@@ -5,6 +5,7 @@ import 'react-pdf/dist/Page/TextLayer.css'
 import 'react-pdf/dist/Page/AnnotationLayer.css'
 import Navbar from '../components/navBar'
 import resume from '/src/assets/craft_backend_resume.docx.pdf'
+import PdfDownloadLink from "../components/pdf_download"
 
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
   "pdfjs-dist/build/pdf.worker.min.mjs",
@@ -20,14 +21,19 @@ const ResumeViewer = () => {
   }
 
     return (
-        <MDBContainer breakpoint='md'>
+        <MDBContainer>
             <center>
-                <div>
+                <div >
                     <Navbar/>
                 </div>
-                <Document file={resume} onLoadSuccess={onDocumentLoadSuccess}>
-                    <Page pageNumber={pageNumber} />
-                </Document>
+                <div style={{ maxWidth: "800px", margin: "0 auto", padding: "20px" }}>
+                    <Document file={resume} onLoadSuccess={onDocumentLoadSuccess}>
+                        <Page pageNumber={pageNumber} />
+                    </Document>
+                </div>
+                <div>
+                    <PdfDownloadLink /> 
+                </div>
             </center>
         </MDBContainer>
         
